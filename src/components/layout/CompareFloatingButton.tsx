@@ -20,20 +20,24 @@ export function CompareFloatingButton() {
   const router = useRouter();
   const { algorithm: currentAlgorithm } = useVisualizerStore();
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<AlgorithmKey[]>([]);
+  const [selected, setSelected] = useState<AlgorithmKey[]>(() => {
+    if (typeof window === "undefined") {
+      return [];
+    }
 
-  useEffect(() => {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) {
-      return;
+      return [];
     }
+
     try {
       const parsed = JSON.parse(raw) as string[];
-      setSelected(parsed.filter(toAlgorithmKey));
+      return parsed.filter(toAlgorithmKey);
     } catch {
       window.localStorage.removeItem(STORAGE_KEY);
+      return [];
     }
-  }, []);
+  });
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(selected));

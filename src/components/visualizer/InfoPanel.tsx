@@ -30,7 +30,7 @@ export function InfoPanel() {
 
   return (
     <div className="glass-card flex h-full flex-col p-5">
-      <Tabs defaultValue="info" className="flex flex-1 flex-col">
+      <Tabs defaultValue="info" className="flex flex-1 flex-col min-h-0">
         <TabsList className="mb-4 w-full rounded-xl bg-secondary/60 p-1">
           <TabsTrigger value="info" className="flex-1 rounded-lg text-xs data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">
             Info
@@ -44,7 +44,7 @@ export function InfoPanel() {
         </TabsList>
 
         {/* Info Tab */}
-        <TabsContent value="info" className="flex-1 space-y-4">
+        <TabsContent value="info" className="flex-1 min-h-0 overflow-y-auto pr-2 subtle-scroll space-y-4">
           <div>
             <h3 className="text-lg font-bold text-foreground">{info.name}</h3>
             <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{info.description}</p>
@@ -110,7 +110,7 @@ export function InfoPanel() {
         </TabsContent>
 
         {/* Code Tab */}
-        <TabsContent value="code" className="flex flex-col gap-3 flex-1 min-h-0">
+        <TabsContent value="code" className="flex flex-col gap-3 flex-1 min-h-0 overflow-hidden">
           {/* Header row */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -145,18 +145,18 @@ export function InfoPanel() {
           </div>
 
           {/* Code block */}
-          <pre className="flex-1 overflow-auto rounded-xl border border-border bg-muted/40 p-4 text-[11px] leading-relaxed text-foreground/90 font-mono dark:bg-slate-950/70 dark:text-slate-200 min-h-0">
+          <pre className="flex-1 overflow-auto rounded-xl border border-border bg-muted/40 p-4 text-[11px] leading-relaxed text-foreground/90 font-mono dark:bg-slate-950/70 dark:text-slate-200 min-h-0 subtle-scroll">
             <code>{info.code[codeLanguage]}</code>
           </pre>
         </TabsContent>
 
         {/* Steps Tab */}
-        <TabsContent value="steps" className="flex-1 overflow-hidden">
+        <TabsContent value="steps" className="flex-1 min-h-0 overflow-hidden">
           <div className="flex items-center gap-2 mb-3">
             <ListChecks className="h-4 w-4 text-cyan-500 dark:text-cyan-400" />
             <span className="text-xs font-medium text-muted-foreground">Step Feed</span>
           </div>
-          <div className="flex-1 space-y-1 overflow-auto max-h-[400px] pr-1">
+          <div className="flex-1 space-y-1 overflow-auto h-full pr-1 subtle-scroll">
             {steps.slice(0, currentStep + 1).map((step, i) => (
               <div
                 key={i}
